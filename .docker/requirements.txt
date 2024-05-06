@@ -1,0 +1,10 @@
+ollama
+langchain
+# langchain-chroma
+# pydantic
+chromadb 
+# tiktoken
+# bs4
+pytest
+pypdf
+pysqlite3-binary
