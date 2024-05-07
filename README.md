@@ -13,6 +13,32 @@ Utilizaremos as seguintes tecnologias:
 - Modelo [nomic-embed-text](https://docs.nomic.ai/reference/endpoints/nomic-embed-text#:~:text=Nomic%20Text%20Embeddings%20allow%20you,and%20use%20them%20in%20Python.) utilizado para criação dos Embeddings
 
 
+## Nvidia GPU
+
+### Instalando o NVIDIA Container Toolkit
+1 - Configure o repositório
+```
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+    | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+    | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+    | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt-get update
+
+```
+2 - Instale o Nvidia Container Toolkit packages
+
+```
+sudo apt-get install -y nvidia-container-toolkit
+```
+
+3 - Configurar o Docker para usar o driver da Nvidia
+```
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
+
 ## Ambiente
 
 Clonar o projeto de:
@@ -23,6 +49,11 @@ entrar no diretório:
 ```
 cd rag_with_ollama
 ```
+
+Caso NÃO tenha uma placa de vídeo NVIDIA é necessário comentar estre trecho no `docker-compose.yaml`.
+![alt text](images/image03.png)
+
+
 Abrir o projeto com o VSCODE e precionar `CRTL` + `SHIFT` + `P` e selecionar a opção `Reopen in Container`
 
 Após inicializar os container, é necessário realizar o download dos Modelos llama3 e do nomic-embed-text. 
@@ -36,7 +67,9 @@ docker exec -it ollama ollama run nomic-embed-text
 ```
 
 Caso queira uma interface para interagir com o modelo, acesse [localhost:8666](localhost:8666). É necessário, no primeiro acesso, cadastrar um usuário com `nome`, `email` e `senha`.
-No primeiro acesso, é necessário definir a conexão com o modelo. Para isso, acesse `Settings`=> `Connections` e em `Ollama Base URL` definia a URL como `http://ollama:11434`.
+
+
+<!-- No primeiro acesso, é necessário definir a conexão com o modelo. Para isso, acesse `Settings`=> `Connections` e em `Ollama Base URL` definia a URL como `http://ollama:11434`. -->
 
 
 

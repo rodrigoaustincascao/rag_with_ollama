@@ -5,6 +5,7 @@ FROM python:3.12-bookworm
 # RUN groupadd -g 1000 appuser
 # RUN useradd -u 1000 -m -d /home/appuser -g appuser appuser
 
+
 COPY requirements.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
     && rm -rf /tmp/pip-tmp
